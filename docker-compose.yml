@@ -1,0 +1,35 @@
+services:
+  vinder.infrastructure.identity.provider:
+    container_name: "vinder.identity.provider"
+    image: vinderio/identity.provider:latest
+    env_file:
+      - .env
+    ports:
+      - "5000:8080"
+    depends_on:
+      - vinder.comanda.orchestrator.infrastructure.mongo.database
+    environment:
+      Settings__Database__ConnectionString: ${MONGO_CONNECTIONSTRING}
+      Settings__Database__DatabaseName: ${MONGO_DATABASENAME}
+      Settings__Administration__Username: ${ADMIN_USERNAME}
+      Settings__Administration__Password: ${ADMIN_PASSWORD}
+
+  vinder.comanda.orchestrator:
+    container_name: "vinder.comanda.orchestrator"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      Settings__Database__ConnectionString: ${MONGO_CONNECTIONSTRING}
+      Settings__Database__DatabaseName: ${MONGO_DATABASENAME}
+      Settings__Federation__BaseUrl: ${FEDERATION_BASEURL}
+      Settings__Federation__Tenant: ${FEDERATION_TENANT}
+      Settings__Federation__ClientId: ${FEDERATION_CLIENT_ID}
+      Settings__Federation__ClientSecret: ${FEDERATION_CLIENT_SECRET}
+    depends_on:
+      - vinder.comanda.orchestrator.infrastructure.mongo.database
+
+volumes:
+  vinder.comanda.orchestrator.infrastructure.mongo.database:

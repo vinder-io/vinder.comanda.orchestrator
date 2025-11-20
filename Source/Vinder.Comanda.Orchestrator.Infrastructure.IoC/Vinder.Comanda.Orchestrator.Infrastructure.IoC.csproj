@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Vinder.Comanda.Orchestrator.Application/Vinder.Comanda.Orchestrator.Application.csproj" />
+    <ProjectReference Include="../Vinder.Comanda.Orchestrator.CrossCutting/Vinder.Comanda.Orchestrator.CrossCutting.csproj" />
+    <ProjectReference Include="../Vinder.Comanda.Orchestrator.Infrastructure/Vinder.Comanda.Orchestrator.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,57 @@
+name: production deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: build docker image
+        run: |
+          docker build -t vinderio/comanda.orchestrator:latest .
+
+      - name: login to docker hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: push docker image
+        run: docker push vinderio/comanda.orchestrator:latest
+
+      - name: deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+
+            IMAGE="vinderio/comanda.orchestrator:latest"
+
+            echo "pulling latest image..."
+            docker pull $IMAGE
+
+            echo "stopping old container (if exists)..."
+            docker stop comanda.orchestrator.webapi || true
+            docker rm comanda.orchestrator.webapi || true
+
+            echo "starting new container..."
+            docker run -d --name comanda.orchestrator.webapi -p 8099:5000 \
+              -e ASPNETCORE_URLS=http://+:5000 \
+              -e Settings__Federation__BaseUrl="${{ secrets.FEDERATION_BASEURL }}" \
+              -e Settings__Federation__Tenant="${{ secrets.FEDERATION_TENANT }}" \
+              -e Settings__Federation__ClientId="${{ secrets.FEDERATION_CLIENTID }}" \
+              -e Settings__Federation__ClientSecret="${{ secrets.FEDERATION_CLIENTSECRET }}"
+              $IMAGE
+
+            echo "cleaning up old images..."
+            docker image prune -f
+
