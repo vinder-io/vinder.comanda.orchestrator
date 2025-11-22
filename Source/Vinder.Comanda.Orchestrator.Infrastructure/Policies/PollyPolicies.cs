@@ -4,6 +4,23 @@ public static class PollyPolicies
 {
     public static AsyncPolicyWrap<Result<TResult>> CreatePolicy<TResult>(ILogger logger)
     {
+        var rateLimitPolicy = Policy.RateLimitAsync(
+            numberOfExecutions: 5,
+            perTimeSpan: TimeSpan.FromSeconds(1),
+            maxBurst: 2
+        );
+
+        var rateLimitFallback = Policy<Result<TResult>>
+           .Handle<RateLimitRejectedException>()
+           .FallbackAsync(
+               fallbackValue: Result<TResult>.Failure(CommonErrors.RateLimitExceeded),
+               onFallbackAsync: (delegateResult, context) =>
+               {
+                   logger.LogWarning("Rate limit exceeded");
+                   return Task.CompletedTask;
+               }
+           );
+
         var timeoutPolicy = Policy.TimeoutAsync<Result<TResult>>(TimeSpan.FromSeconds(20));
         var retryPolicy = Policy<Result<TResult>>
             .Handle<Exception>()
@@ -37,7 +54,9 @@ public static class PollyPolicies
         return Policy.WrapAsync<Result<TResult>>(
             fallbackPolicy,
             retryPolicy,
+            rateLimitFallback,
             circuitBreakerPolicy.AsAsyncPolicy<Result<TResult>>(),
+            rateLimitPolicy.AsAsyncPolicy<Result<TResult>>(),
             timeoutPolicy
         );
     }

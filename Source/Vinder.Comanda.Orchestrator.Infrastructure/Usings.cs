@@ -9,4 +9,5 @@ global using Vinder.Comanda.Orchestrator.Infrastructure.Policies;
 global using Vinder.Internal.Essentials.Patterns;
 
 global using Polly;
+global using Polly.RateLimit;
 global using Polly.Wrap;

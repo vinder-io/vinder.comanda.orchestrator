@@ -4,6 +4,6 @@ public static class GatewaysExtension
 {
     public static void AddGateways(this IServiceCollection services)
     {
-        services.AddTransient<IProfilesGateway, ProfilesGateway>();
+        services.AddSingleton<IProfilesGateway, ProfilesGateway>();
     }
 }

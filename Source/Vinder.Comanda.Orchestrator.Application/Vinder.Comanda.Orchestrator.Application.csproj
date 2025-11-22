@@ -10,7 +10,7 @@
     <PackageReference Include="FluentValidation" Version="12.1.0" />
     <PackageReference Include="Vinder.Dispatcher" Version="1.0.3" />
     <PackageReference Include="Vinder.IdentityProvider.Sdk.Contracts" Version="1.0.5" />
-    <PackageReference Include="Vinder.Comanda.Internal.Contracts" Version="1.0.7" />
+    <PackageReference Include="Vinder.Comanda.Internal.Contracts" Version="1.0.8" />
   </ItemGroup>
 
 </Project>

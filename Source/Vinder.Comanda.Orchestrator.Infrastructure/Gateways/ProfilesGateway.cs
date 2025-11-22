@@ -2,6 +2,12 @@ namespace Vinder.Comanda.Orchestrator.Infrastructure.Gateways;
 
 public sealed class ProfilesGateway(ICustomerClient customerClient, IOwnerClient ownerClient, ILogger<IProfilesGateway> logger) : IProfilesGateway
 {
+    private readonly AsyncPolicyWrap<Result<CustomerScheme>> _customerPolicy =
+        PollyPolicies.CreatePolicy<CustomerScheme>(logger);
+
+    private readonly AsyncPolicyWrap<Result<OwnerScheme>> _ownerPolicy =
+        PollyPolicies.CreatePolicy<OwnerScheme>(logger);
+
     public async Task<Result<CustomerScheme>> CreateCustomerAsync(
         CustomerCreationScheme parameters, CancellationToken cancellation = default)
     {
@@ -9,9 +15,8 @@ public sealed class ProfilesGateway(ICustomerClient customerClient, IOwnerClient
         // timeout, retry, fallback, and circuit breaker policies.
 
         // more details: https://learn.microsoft.com/dotnet/architecture/resilient-applications/
-        var policy = PollyPolicies.CreatePolicy<CustomerScheme>(logger);
 
-        return await policy.ExecuteAsync(token =>
+        return await _customerPolicy.ExecuteAsync(token =>
             customerClient.CreateCustomerAsync(parameters, token), cancellation
         );
     }
@@ -23,9 +28,8 @@ public sealed class ProfilesGateway(ICustomerClient customerClient, IOwnerClient
         // timeout, retry, fallback, and circuit breaker policies.
 
         // more details: https://learn.microsoft.com/dotnet/architecture/resilient-applications/
-        var policy = PollyPolicies.CreatePolicy<OwnerScheme>(logger);
 
-        return await policy.ExecuteAsync(token =>
+        return await _ownerPolicy.ExecuteAsync(token =>
             ownerClient.CreateOwnerAsync(parameters, token), cancellation
         );
     }
