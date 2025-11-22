@@ -3,6 +3,7 @@ global using System.Diagnostics.CodeAnalysis;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Authorization;
 
+global using Vinder.Comanda.Internal.Contracts.Errors;
 global using Vinder.Comanda.Internal.Contracts.Transport.Internal.Profiles;
 global using Vinder.Comanda.Internal.Contracts.Transport.Internal;
 

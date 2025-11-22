@@ -1,6 +1,4 @@
-﻿using Vinder.Comanda.Internal.Contracts.Errors;
-
-namespace Vinder.Comanda.Orchestrator.WebApi.Controllers;
+﻿namespace Vinder.Comanda.Orchestrator.WebApi.Controllers;
 
 [ApiController]
 [Route("api/v1/profiles")]
