@@ -14,12 +14,19 @@ public static class ClientsExtension
             options.Headers.Add("Authorization");
         });
 
-        var profilesClient = services.AddHttpClient<ICustomerClient, CustomerClient>(client =>
+        var customersClient = services.AddHttpClient<ICustomerClient, CustomerClient>(client =>
         {
             client.BaseAddress = new Uri(settings.Services.ProfilesUrl);
             client.Timeout = TimeSpan.FromMinutes(minutes: 1, seconds: 30);
         });
 
-        profilesClient.AddHeaderPropagation();
+        var ownersClient = services.AddHttpClient<IOwnerClient, OwnerClient>(client =>
+        {
+            client.BaseAddress = new Uri(settings.Services.ProfilesUrl);
+            client.Timeout = TimeSpan.FromMinutes(minutes: 1, seconds: 30);
+        });
+
+        customersClient.AddHeaderPropagation();
+        ownersClient.AddHeaderPropagation();
     }
 }

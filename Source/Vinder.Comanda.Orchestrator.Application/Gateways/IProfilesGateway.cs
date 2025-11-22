@@ -6,4 +6,9 @@ public interface IProfilesGateway
         CustomerCreationScheme parameters,
         CancellationToken cancellation = default
     );
+
+    public Task<Result<OwnerScheme>> CreateOwnerAsync(
+        OwnerCreationScheme parameters,
+        CancellationToken cancellation = default
+    );
 }
