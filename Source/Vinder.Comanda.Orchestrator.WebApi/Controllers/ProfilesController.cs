@@ -33,6 +33,10 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
             /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
     }
 
@@ -65,6 +69,10 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
             /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
     }
 }
