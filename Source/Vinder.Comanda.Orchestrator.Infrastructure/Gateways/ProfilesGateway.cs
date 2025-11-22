@@ -1,8 +1,3 @@
-using Vinder.Comanda.Internal.Contracts.Clients.Interfaces;
-using Vinder.Comanda.Internal.Contracts.Transport.Internal.Profiles;
-using Vinder.Comanda.Orchestrator.Application.Gateways;
-using Vinder.Internal.Essentials.Patterns;
-
 namespace Vinder.Comanda.Orchestrator.Infrastructure.Gateways;
 
 public sealed class ProfilesGateway(ICustomerClient customerClient) : IProfilesGateway

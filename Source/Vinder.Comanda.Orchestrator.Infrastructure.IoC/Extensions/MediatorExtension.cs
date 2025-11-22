@@ -5,6 +5,6 @@ public static class MediatorExtension
 {
     public static void AddMediator(this IServiceCollection services)
     {
-        services.AddDispatcher(typeof(EstablishmentCreationHandler));
+        services.AddDispatcher(typeof(CustomerCreationHandler));
     }
 }
