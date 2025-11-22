@@ -42,7 +42,7 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
 
     [HttpPost("owners")]
     public async Task<IActionResult> CreateOwnerAsync(
-    [FromBody] OwnerCreationScheme request, CancellationToken cancellation)
+        [FromBody] OwnerCreationScheme request, CancellationToken cancellation)
     {
         var result = await dispatcher.DispatchAsync(request, cancellation);
 
