@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Polly" Version="8.6.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="../Vinder.Comanda.Orchestrator.Application/Vinder.Comanda.Orchestrator.Application.csproj" />
     <ProjectReference Include="..\Vinder.Comanda.Orchestrator.CrossCutting\Vinder.Comanda.Orchestrator.CrossCutting.csproj" />
   </ItemGroup>
