@@ -5,6 +5,8 @@ public static class ServicesExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddSettings(configuration);
         services.AddMediator();
+        services.AddGateways();
     }
 }

@@ -24,7 +24,11 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
 
             /* for tracking purposes: raise error #COMANDA-ERROR-76A71 */
             { IsFailure: true } when result.Error == ProfileErrors.ProfileAlreadyExists =>
-                StatusCode(StatusCodes.Status409Conflict, result.Error)
+                StatusCode(StatusCodes.Status409Conflict, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-76A71 */
+            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
+                StatusCode(StatusCodes.Status403Forbidden, result.Error)
         };
     }
 }

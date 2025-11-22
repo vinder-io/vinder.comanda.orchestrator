@@ -7,6 +7,9 @@ global using Vinder.Comanda.Internal.Contracts.Errors;
 global using Vinder.Comanda.Internal.Contracts.Transport.Internal.Profiles;
 global using Vinder.Comanda.Internal.Contracts.Transport.Internal;
 
+global using Vinder.Comanda.Internal.Contracts.Clients;
+global using Vinder.Comanda.Internal.Contracts.Clients.Interfaces;
+
 global using Vinder.Comanda.Orchestrator.WebApi.Extensions;
 global using Vinder.Comanda.Orchestrator.Infrastructure.IoC.Extensions;
 global using Vinder.Comanda.Orchestrator.CrossCutting.Configurations;

@@ -8,6 +8,7 @@ public static class HttpPipelineExtension
         app.UseHttpsRedirection();
 
         app.UseRouting();
+        app.UseHeaderPropagation();
         app.UseCors();
 
         app.UseAuthentication();
