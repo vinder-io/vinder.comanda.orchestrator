@@ -68,6 +68,7 @@ public sealed class ProfilesGateway(ICustomerClient customerClient, IOwnerClient
             ownerClient.UpdateOwnerAsync(parameters, token), cancellation
         );
     }
+
     public async Task<Result> DeleteOwnerAsync(
         OwnerDeletionScheme parameters, CancellationToken cancellation = default)
     {
