@@ -75,4 +75,61 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
     }
+
+    [HttpPut("owners/{ownerId}")]
+    public async Task<IActionResult> UpdateOwnerAsync(
+        [FromBody] EditOwnerScheme request, [FromRoute] string ownerId, CancellationToken cancellation)
+    {
+        var result = await dispatcher.DispatchAsync(request with { OwnerId = ownerId }, cancellation);
+
+        return result switch
+        {
+            { IsSuccess: true } =>
+                StatusCode(StatusCodes.Status200OK, result.Data),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-0831D */
+            { IsFailure: true } when result.Error == OwnerErrors.OwnerDoesNotExist =>
+                StatusCode(StatusCodes.Status404NotFound, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
+            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
+                StatusCode(StatusCodes.Status403Forbidden, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
+            { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
+                StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
+        };
+    }
+
+    [HttpDelete("owners/{ownerId}")]
+    public async Task<IActionResult> DeleteOwnerAsync(
+        [FromQuery] OwnerDeletionScheme request, [FromRoute] string ownerId, CancellationToken cancellation)
+    {
+        var result = await dispatcher.DispatchAsync(request with { OwnerId = ownerId }, cancellation);
+
+        return result switch
+        {
+            { IsSuccess: true } => StatusCode(StatusCodes.Status204NoContent),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-0831D */
+            { IsFailure: true } when result.Error == OwnerErrors.OwnerDoesNotExist =>
+                StatusCode(StatusCodes.Status404NotFound, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
+            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
+                StatusCode(StatusCodes.Status403Forbidden, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
+            { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
+                StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
+        };
+    }
 }
