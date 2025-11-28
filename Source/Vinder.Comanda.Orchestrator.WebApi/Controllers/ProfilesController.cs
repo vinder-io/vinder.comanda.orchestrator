@@ -4,9 +4,40 @@
 [Route("api/v1/profiles")]
 public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
 {
+    [HttpGet("customers")]
+    public async Task<IActionResult> GetCustomersAsync([FromQuery] FetchCustomersParameters request, CancellationToken cancellation)
+    {
+        var result = await dispatcher.DispatchAsync(request, cancellation);
+
+        /* applies pagination navigation links according to RFC 8288 (web linking) */
+        /* https://datatracker.ietf.org/doc/html/rfc8288 */
+        if (result.IsSuccess && result.Data is not null)
+        {
+            Response.WithPagination(result.Data);
+            Response.WithWebLinking(result.Data, Request);
+        }
+
+        return result switch
+        {
+            { IsSuccess: true } when result.Data is not null =>
+                StatusCode(StatusCodes.Status200OK, result.Data.Items),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
+            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
+                StatusCode(StatusCodes.Status403Forbidden, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
+            { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
+                StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
+        };
+    }
+
     [HttpPost("customers")]
-    public async Task<IActionResult> CreateCustomerAsync(
-        [FromBody] CustomerCreationScheme request, CancellationToken cancellation)
+    public async Task<IActionResult> CreateCustomerAsync([FromBody] CustomerCreationScheme request, CancellationToken cancellation)
     {
         var result = await dispatcher.DispatchAsync(request, cancellation);
 
