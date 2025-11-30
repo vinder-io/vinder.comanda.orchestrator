@@ -13,4 +13,8 @@
     <PackageReference Include="Vinder.Comanda.Internal.Contracts" Version="1.0.14" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers\Payments\" />
+  </ItemGroup>
+
 </Project>
