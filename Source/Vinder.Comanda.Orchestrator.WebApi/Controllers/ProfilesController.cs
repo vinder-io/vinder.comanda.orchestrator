@@ -99,6 +99,149 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
         };
     }
 
+    [HttpDelete("customers/{customerId}")]
+    public async Task<IActionResult> DeleteCustomerAsync(
+        [FromQuery] CustomerDeletionScheme request, [FromRoute] string customerId, CancellationToken cancellation)
+    {
+        var result = await dispatcher.DispatchAsync(request with { CustomerId = customerId }, cancellation);
+
+        return result switch
+        {
+            { IsSuccess: true } => StatusCode(StatusCodes.Status204NoContent),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
+            { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
+                StatusCode(StatusCodes.Status404NotFound, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
+            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
+                StatusCode(StatusCodes.Status403Forbidden, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
+            { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
+                StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
+        };
+    }
+
+    [HttpGet("customers/{customerId}/addresses")]
+    public async Task<IActionResult> GetCustomerAddressesAsync(
+        [FromQuery] FetchCustomerAddressesParameters request, [FromRoute] string customerId, CancellationToken cancellation)
+    {
+        var result = await dispatcher.DispatchAsync(request with { CustomerId = customerId }, cancellation);
+
+        return result switch
+        {
+            { IsSuccess: true } when result.Data is not null =>
+                StatusCode(StatusCodes.Status200OK, result.Data),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
+            { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
+                StatusCode(StatusCodes.Status404NotFound, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
+            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
+                StatusCode(StatusCodes.Status403Forbidden, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
+            { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
+                StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
+        };
+    }
+
+    [HttpPost("customers/{customerId}/addresses")]
+    public async Task<IActionResult> AssignCustomerAddressAsync(
+        [FromBody] AssignCustomerAddressScheme request, [FromRoute] string customerId, CancellationToken cancellation)
+    {
+        var result = await dispatcher.DispatchAsync(request with { CustomerId = customerId }, cancellation);
+
+        return result switch
+        {
+            { IsSuccess: true } =>
+                StatusCode(StatusCodes.Status201Created, result.Data),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
+            { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
+                StatusCode(StatusCodes.Status404NotFound, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
+            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
+                StatusCode(StatusCodes.Status403Forbidden, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
+            { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
+                StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
+        };
+    }
+
+    [HttpPut("customers/{customerId}/addresses")]
+    public async Task<IActionResult> EditCustomerAddressAsync(
+        [FromBody] EditCustomerAddressScheme request, [FromRoute] string customerId, CancellationToken cancellation)
+    {
+        var result = await dispatcher.DispatchAsync(request with { CustomerId = customerId }, cancellation);
+
+        return result switch
+        {
+            { IsSuccess: true } when result.Data is not null =>
+                StatusCode(StatusCodes.Status200OK, result.Data),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
+            { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
+                StatusCode(StatusCodes.Status404NotFound, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
+            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
+                StatusCode(StatusCodes.Status403Forbidden, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
+            { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
+                StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
+        };
+    }
+
+    [HttpDelete("customers/{customerId}/addresses")]
+    public async Task<IActionResult> DeleteCustomerAddressAsync(
+        [FromBody] DeleteCustomerAddressScheme request, [FromRoute] string customerId, CancellationToken cancellation)
+    {
+        var result = await dispatcher.DispatchAsync(request with { CustomerId = customerId }, cancellation);
+
+        return result switch
+        {
+            { IsSuccess: true } => StatusCode(StatusCodes.Status204NoContent),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
+            { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
+                StatusCode(StatusCodes.Status404NotFound, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
+            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
+                StatusCode(StatusCodes.Status403Forbidden, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
+            { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
+                StatusCode(StatusCodes.Status500InternalServerError, result.Error),
+
+            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
+            { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
+                StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
+        };
+    }
+
     [HttpGet("owners")]
     public async Task<IActionResult> GetOwnersAsync(
         [FromQuery] FetchOwnersParameters request, CancellationToken cancellation)
