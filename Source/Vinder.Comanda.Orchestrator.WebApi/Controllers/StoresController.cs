@@ -23,15 +23,9 @@ public sealed class StoresController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data.Items),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -55,19 +49,12 @@ public sealed class StoresController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status201Created, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-84F47 */
             { IsFailure: true } when result.Error == EstablishmentErrors.OwnerAlreadyHasEstablishment =>
                 StatusCode(StatusCodes.Status409Conflict, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -84,19 +71,12 @@ public sealed class StoresController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-0A2DF */
             { IsFailure: true } when result.Error == EstablishmentErrors.EstablishmentDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -112,19 +92,12 @@ public sealed class StoresController(IDispatcher dispatcher) : ControllerBase
         {
             { IsSuccess: true } => StatusCode(StatusCodes.Status204NoContent),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-0A2DF */
             { IsFailure: true } when result.Error == EstablishmentErrors.EstablishmentDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -149,15 +122,9 @@ public sealed class StoresController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data.Items),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -181,15 +148,9 @@ public sealed class StoresController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status201Created, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -206,23 +167,15 @@ public sealed class StoresController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-0A2DF */
             { IsFailure: true } when result.Error == EstablishmentErrors.EstablishmentDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-C2C1B */
             { IsFailure: true } when result.Error == ProductErrors.ProductDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -239,23 +192,15 @@ public sealed class StoresController(IDispatcher dispatcher) : ControllerBase
         {
             { IsSuccess: true } => StatusCode(StatusCodes.Status204NoContent),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-0A2DF */
             { IsFailure: true } when result.Error == EstablishmentErrors.EstablishmentDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-C2C1B */
             { IsFailure: true } when result.Error == ProductErrors.ProductDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -271,27 +216,18 @@ public sealed class StoresController(IDispatcher dispatcher) : ControllerBase
         {
             { IsSuccess: true } => StatusCode(StatusCodes.Status204NoContent),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-0A2DF */
             { IsFailure: true } when result.Error == EstablishmentErrors.EstablishmentDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-C2C1B */
             { IsFailure: true } when result.Error == ProductErrors.ProductDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-9FF68 */
             { IsFailure: true } when result.Error == ProductErrors.ProductBelongsToAnotherEstablishment =>
                 StatusCode(StatusCodes.Status422UnprocessableEntity, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
