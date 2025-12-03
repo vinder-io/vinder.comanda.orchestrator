@@ -5,5 +5,7 @@ public static class GatewaysExtension
     public static void AddGateways(this IServiceCollection services)
     {
         services.AddSingleton<IProfilesGateway, ProfilesGateway>();
+        services.AddSingleton<IPaymentGateway, PaymentGateway>();
+        services.AddSingleton<IEstablishmentGateway, EstablishmentGateway>();
     }
 }
