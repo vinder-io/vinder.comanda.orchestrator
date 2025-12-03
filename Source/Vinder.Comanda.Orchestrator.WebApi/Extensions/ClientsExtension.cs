@@ -26,7 +26,22 @@ public static class ClientsExtension
             client.Timeout = TimeSpan.FromMinutes(minutes: 1, seconds: 30);
         });
 
+        var paymentsClient = services.AddHttpClient<IPaymentClient, PaymentClient>(client =>
+        {
+            client.BaseAddress = new Uri(settings.Services.PaymentsUrl);
+            client.Timeout = TimeSpan.FromMinutes(minutes: 1, seconds: 30);
+        });
+
+        var storesClient = services.AddHttpClient<IEstablishmentClient, EstablishmentClient>(client =>
+        {
+            client.BaseAddress = new Uri(settings.Services.StoresUrl);
+            client.Timeout = TimeSpan.FromMinutes(minutes: 1, seconds: 30);
+        });
+
         customersClient.AddHeaderPropagation();
         ownersClient.AddHeaderPropagation();
+
+        paymentsClient.AddHeaderPropagation();
+        storesClient.AddHeaderPropagation();
     }
 }
