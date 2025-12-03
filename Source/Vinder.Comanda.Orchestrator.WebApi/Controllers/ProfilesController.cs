@@ -22,15 +22,9 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data.Items),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -50,22 +44,15 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } =>
+            { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status201Created, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-76A71 */
             { IsFailure: true } when result.Error == ProfileErrors.ProfileAlreadyExists =>
                 StatusCode(StatusCodes.Status409Conflict, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -81,19 +68,12 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
             { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -109,19 +89,12 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
         {
             { IsSuccess: true } => StatusCode(StatusCodes.Status204NoContent),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
             { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -138,19 +111,12 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
             { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -164,22 +130,15 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } =>
+            { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status201Created, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
             { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -196,19 +155,12 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
             { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -224,27 +176,19 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
         {
             { IsSuccess: true } => StatusCode(StatusCodes.Status204NoContent),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-AF04C */
             { IsFailure: true } when result.Error == CustomerErrors.CustomerDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
     }
 
     [HttpGet("owners")]
-    public async Task<IActionResult> GetOwnersAsync(
-        [FromQuery] FetchOwnersParameters request, CancellationToken cancellation)
+    public async Task<IActionResult> GetOwnersAsync([FromQuery] FetchOwnersParameters request, CancellationToken cancellation)
     {
         var result = await dispatcher.DispatchAsync(request, cancellation);
 
@@ -261,23 +205,16 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data.Items),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
     }
 
     [HttpPost("owners")]
-    public async Task<IActionResult> CreateOwnerAsync(
-        [FromBody] OwnerCreationScheme request, CancellationToken cancellation)
+    public async Task<IActionResult> CreateOwnerAsync([FromBody] OwnerCreationScheme request, CancellationToken cancellation)
     {
         var result = await dispatcher.DispatchAsync(request, cancellation);
 
@@ -290,22 +227,15 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } =>
+            { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status201Created, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-76A71 */
             { IsFailure: true } when result.Error == ProfileErrors.ProfileAlreadyExists =>
                 StatusCode(StatusCodes.Status409Conflict, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -322,19 +252,12 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
             { IsSuccess: true } =>
                 StatusCode(StatusCodes.Status200OK, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-0831D */
             { IsFailure: true } when result.Error == OwnerErrors.OwnerDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };
@@ -350,19 +273,12 @@ public sealed class ProfilesController(IDispatcher dispatcher) : ControllerBase
         {
             { IsSuccess: true } => StatusCode(StatusCodes.Status204NoContent),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-0831D */
             { IsFailure: true } when result.Error == OwnerErrors.OwnerDoesNotExist =>
                 StatusCode(StatusCodes.Status404NotFound, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error),
         };

@@ -13,7 +13,7 @@ public sealed class PaymentsController(IDispatcher dispatcher) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } =>
+            { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data),
 
             /* returning 502 Bad Gateway because an unexpected or invalid response was received from the external provider */
@@ -21,15 +21,9 @@ public sealed class PaymentsController(IDispatcher dispatcher) : ControllerBase
             { IsFailure: true } when result.Error == AbacatePayErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status502BadGateway, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error)
         };
@@ -42,18 +36,12 @@ public sealed class PaymentsController(IDispatcher dispatcher) : ControllerBase
 
         return result switch
         {
-            { IsSuccess: true } =>
+            { IsSuccess: true } when result.Data is not null =>
                 StatusCode(StatusCodes.Status200OK, result.Data),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-61CC0 */
-            { IsFailure: true } when result.Error == CommonErrors.UnauthorizedAccess =>
-                StatusCode(StatusCodes.Status403Forbidden, result.Error),
-
-            /* for tracking purposes: raise error #COMANDA-ERROR-60A10 */
             { IsFailure: true } when result.Error == CommonErrors.OperationFailed =>
                 StatusCode(StatusCodes.Status500InternalServerError, result.Error),
 
-            /* for tracking purposes: raise error #COMANDA-ERROR-B6688 */
             { IsFailure: true } when result.Error == CommonErrors.RateLimitExceeded =>
                 StatusCode(StatusCodes.Status429TooManyRequests, result.Error)
         };
