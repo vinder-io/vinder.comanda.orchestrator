@@ -4,6 +4,7 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Authorization;
 
 global using Vinder.Comanda.Internal.Contracts.Errors;
+global using Vinder.Comanda.Internal.Contracts.Transport.Internal.Products;
 global using Vinder.Comanda.Internal.Contracts.Transport.Internal.Profiles;
 global using Vinder.Comanda.Internal.Contracts.Transport.Internal.Payments;
 global using Vinder.Comanda.Internal.Contracts.Transport.Internal.Stores;
