@@ -11,7 +11,7 @@ public static class ClientsExtension
         // essential for receiving an authenticated request and forwarding it to another service
         services.AddHeaderPropagation(options =>
         {
-            options.Headers.Add("Authorization");
+            options.Headers.Add(Headers.Authorization);
         });
 
         var customersClient = services.AddHttpClient<ICustomerClient, CustomerClient>(client =>

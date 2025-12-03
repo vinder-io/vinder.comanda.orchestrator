@@ -30,7 +30,7 @@ public static class HeadersExtension
         var validLinks = links.Where(link => link.Condition).Select(link => link.Value).ToList();
         if (validLinks.Count > 0)
         {
-            response.Headers.Append("Link", string.Join(", ", validLinks));
+            response.Headers.Append(Headers.Link, string.Join(", ", validLinks));
         }
 
         return response.Headers;
@@ -49,7 +49,7 @@ public static class HeadersExtension
             pagination.HasPreviousPage
         };
 
-        response.Headers.Append("X-Pagination", JsonSerializer.Serialize(metadata));
+        response.Headers.Append(Headers.Pagination, JsonSerializer.Serialize(metadata));
 
         return response;
     }
@@ -61,7 +61,7 @@ public static class HeadersExtension
         var query = HttpUtility.ParseQueryString(request.QueryString.ToString());
 
         query.Set("id", resourceId);
-        response.Headers.Append("Location", $"{baseUrl}?{query}");
+        response.Headers.Append(Headers.Location, $"{baseUrl}?{query}");
 
         return response;
     }
