@@ -38,10 +38,17 @@ public static class ClientsExtension
             client.Timeout = TimeSpan.FromMinutes(minutes: 1, seconds: 30);
         });
 
+        var productsClient = services.AddHttpClient<IProductClient, ProductClient>(client =>
+        {
+            client.BaseAddress = new Uri(settings.Services.StoresUrl);
+            client.Timeout = TimeSpan.FromMinutes(minutes: 1, seconds: 30);
+        });
+
         customersClient.AddHeaderPropagation();
         ownersClient.AddHeaderPropagation();
-
         paymentsClient.AddHeaderPropagation();
+
         storesClient.AddHeaderPropagation();
+        productsClient.AddHeaderPropagation();
     }
 }
