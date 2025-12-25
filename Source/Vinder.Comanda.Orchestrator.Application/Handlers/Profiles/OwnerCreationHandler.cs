@@ -30,7 +30,7 @@ public sealed class OwnerCreationHandler(IProfilesGateway profilesGateway, IUser
         var assignment = await usersClient.AssignUserGroupAsync(user.Id, group.Id, cancellation);
         if (assignment.IsFailure)
         {
-            return Result<OwnerScheme>.Failure(ProfileErrors.ProfileAlreadyExists);
+            return Result<OwnerScheme>.Failure(assignment.Error);
         }
 
         return await profilesGateway.CreateOwnerAsync(parameters, cancellation);

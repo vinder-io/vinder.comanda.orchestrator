@@ -30,7 +30,7 @@ public sealed class CustomerCreationHandler(IProfilesGateway profilesGateway, IU
         var assignment = await usersClient.AssignUserGroupAsync(user.Id, group.Id, cancellation);
         if (assignment.IsFailure)
         {
-            return Result<CustomerScheme>.Failure(ProfileErrors.ProfileAlreadyExists);
+            return Result<CustomerScheme>.Failure(assignment.Error);
         }
 
         return await profilesGateway.CreateCustomerAsync(parameters, cancellation);
