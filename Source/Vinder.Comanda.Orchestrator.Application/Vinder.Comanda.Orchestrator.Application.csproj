@@ -17,4 +17,8 @@
     <Folder Include="Handlers\Payments\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Vinder.Comanda.Orchestrator.CrossCutting\Vinder.Comanda.Orchestrator.CrossCutting.csproj" />
+  </ItemGroup>
+
 </Project>

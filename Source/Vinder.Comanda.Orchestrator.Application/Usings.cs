@@ -1,5 +1,6 @@
 global using Vinder.Comanda.Orchestrator.Application.Gateways;
 global using Vinder.Comanda.Orchestrator.Application.Payloads.Payments;
+global using Vinder.Comanda.Orchestrator.CrossCutting.Constants;
 
 global using Vinder.Comanda.Internal.Contracts.Transport.Internal.Profiles;
 global using Vinder.Comanda.Internal.Contracts.Transport.Internal.Payments;

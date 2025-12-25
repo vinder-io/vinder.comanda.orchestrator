@@ -12,18 +12,14 @@ public sealed class OwnerCreationHandler(IProfilesGateway profilesGateway, IUser
         };
 
         var users = await usersClient.GetUsersAsync(filters, cancellation);
-        if (users.IsFailure || users.Data is null)
-        {
-            return Result<OwnerScheme>.Failure(users.Error);
-        }
+        var user = users.Data?.Items.FirstOrDefault();
 
-        var user = users.Data.Items.FirstOrDefault();
         if (user is null)
         {
             return Result<OwnerScheme>.Failure(users.Error);
         }
 
-        var groups = await groupsClient.GetGroupsAsync(new() { Name = "owners" }, cancellation);
+        var groups = await groupsClient.GetGroupsAsync(new() { Name = Groups.Owners }, cancellation);
         var group = groups.Data?.Items.FirstOrDefault();
 
         if (group is null)
@@ -31,7 +27,7 @@ public sealed class OwnerCreationHandler(IProfilesGateway profilesGateway, IUser
             return Result<OwnerScheme>.Failure(groups.Error);
         }
 
-        var assignment = await usersClient.AssignUserGroupAsync(user.Id, group.Name, cancellation);
+        var assignment = await usersClient.AssignUserGroupAsync(user.Id, group.Id, cancellation);
         if (assignment.IsFailure)
         {
             return Result<OwnerScheme>.Failure(ProfileErrors.ProfileAlreadyExists);
