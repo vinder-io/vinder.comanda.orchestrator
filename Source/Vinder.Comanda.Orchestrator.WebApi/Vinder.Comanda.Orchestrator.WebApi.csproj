@@ -16,7 +16,7 @@
     <PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" Version="9.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.9.0" />
-    <PackageReference Include="Vinder.IdentityProvider.Sdk" Version="1.0.9" />
+    <PackageReference Include="Vinder.IdentityProvider.Sdk" Version="1.0.11" />
   </ItemGroup>
 
   <ItemGroup>
